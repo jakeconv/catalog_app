@@ -177,8 +177,16 @@ def addItem():
         # Get request.  Pull the current category list.
         # Then, return the add item form.
         categories = session.query(Category).all()
-        return render_template('new_item.html', categories=categories,
-                               username=login_session['username'])
+        if (categories):
+            # Render the form with the available categories
+            return render_template('new_item.html',
+                                   categories=categories,
+                                   username=login_session['username'])
+        else:
+            # No categories exist
+            # Prompt the user to add a category first
+            flash('Error: You must make a category first!')
+            return redirect(url_for('showCatalog'))
 
 
 @app.route('/catalog/category/add', methods=['GET', 'POST'])
