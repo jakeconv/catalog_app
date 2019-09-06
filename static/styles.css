@@ -1,0 +1,116 @@
+body {
+    font-family: 'helvetica';
+    background-color: grey;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: black;
+    font-family: 'helvetica';
+}
+
+h1,
+h2 {
+    font-family: 'helvetica', serif;
+    margin: 0;
+}
+
+h1 {
+    border-bottom: 2px solid #eee;
+}
+
+h2 {
+    font-size: 1.2em;
+}
+
+p,
+dd,
+dt {
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+.flash {
+    background: azure;
+}
+
+.header {
+    width: 100%;
+    height: 60px;
+    padding: 0px;
+    background: lightgrey;
+    margin: auto;
+    font-style: bold;
+}
+
+.header-right{
+    padding-top: 20px;
+    background: lightgrey;
+    margin-left: 10%;
+}
+
+.header-left{
+    width: 90%;
+    height: 60px;
+    text-align: left;
+    background: lightgrey;
+    float: left;
+    font-size: 40px;
+    text-indent: 5px;
+}
+
+.catalog-container {
+    width: 85%;
+    height: 600px;
+    background: lightgrey;
+    margin: auto;
+    padding: 10px;
+    margin: 10px;
+}
+.categories {
+    width: 20%;
+    height: 600px;
+    background: mintcream;
+    float: left;
+    font-size: 16px;
+    text-indent: 5px;
+}
+.items {
+    margin-left: 10%;
+    height: 600px;
+    background: azure;
+    text-indent: 5px;
+    font-size: 16px;
+}
+
+.item {
+    width: 100%;
+    height: 600px;
+    background: azure;
+    margin: auto;
+    text-indent: 5px;
+}
+
+.form-page{
+    width: 85%;
+    height: 600px;
+    background: lightgrey;
+    margin: auto;
+    padding: 10px;
+    margin: 10px;
+}
+
+.bottom-link {
+    position: relative;
+    bottom: 0px;
+    color: blue;
+}
+
+.category-name {
+    color: red;
+}

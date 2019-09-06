@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% block content %}
+{% if username %}
+{% with username = username %}
+{% include "header.html" %}
+{% endwith %}
+{% else %}
+{% include "header.html" %}
+{% endif %}
+<section class="catalog-container">
+  <div class="item">
+    <title>{{item.name}}</title>
+    <h2>{{item.name}}</h2>
+    <p>{{item.description}}</p>
+    <br>
+    {% if username %}
+    <a class="bottom-link" href='{{url_for('editItem', itemName = item.name) }}'>Edit</a>
+    <a class="bottom-link" href='{{url_for('deleteItem', itemName = item.name) }}'>Delete</a>
+    {% endif %}
+    <br>
+    <br>
+  </div>
+</section>
+{% endblock %}

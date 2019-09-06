@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+{% block content %}
+{% if username %}
+{% with username = username %}
+{% include "header.html" %}
+{% endwith %}
+{% else %}
+{% include "header.html" %}
+{% endif %}
+
+<section class="form-page">
+	<h1> Edit Item </h1>
+	<title>Edit Item</title>
+	<form action = "{{ url_for('editItem', itemName = item.name)}}" method = 'post'>	
+		<p>Name:</p>
+		<input type = 'text' size = '30' name = 'name' value = '{{item.name}}'>
+		<br>
+		<p>Description:</p>
+		<input type = 'text' size = '30' name = 'description' value = '{{item.description}}'>
+		<br>
+		<p>Category:</p>
+		<select name = "cat_id">
+			{% for c in categories %}
+			{% if c.id == item.category_id %}
+			<option value="{{c.id}}" selected>{{c.name}}</option>
+			{% else %}
+			<option value="{{c.id}}">{{c.name}}</option>
+			{% endif %}
+			{% endfor %}
+		</select>
+		<br>
+		<br>
+		<input type = 'submit' value='Edit'>
+		<a class = "bottom-link" href = "{{url_for('showCatalog')}}" >Cancel</a> 
+	</form>
+</section>
+{% endblock %}

@@ -1,0 +1,32 @@
+<section class="header">
+	<div class="row top-menu">
+		<div class="header-left">
+			<a href="{{url_for('showCatalog')}}">
+				<span class="glyphicon glyphicon-home" aria-hidden="true"></span>Catalog App
+			</a>
+		</div>
+		<div class="header-right">
+			{% if username %}
+			<form action="{{url_for('logout')}}">
+				<input type="submit" value="Logout" />
+			</form>
+			{% else %}
+			<form action="{{url_for('login')}}">
+				<input type="submit" value="Login" />
+			</form>
+			{% endif %}
+		</div>
+	</div>
+</section>
+<div class = 'flash'>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+
+	<ul>
+		{% for message in messages %}
+		<li> <strong> {{ message }} </strong> </li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	{% endwith %}
+</div>

@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% block content %}
+{% if username %}
+  {% with username = username %}
+    {% include "header.html" %}
+  {% endwith %}
+{% else %}
+  {% include "header.html" %}
+{% endif %}
+
+<section class="form-page">
+<h1> New Category </h1>
+<title>New Category</title>
+<!--<form action = "{{ url_for('addItem', name = name, description = description, category_id = category_id)}}" method = 'post'>-->
+<form action = "{{ url_for('addCategory')}}" method = 'post'>	
+	<p>Name:</p>
+	<input type = 'text' size = '30' name = 'name'>
+	<br>
+	<br>
+	<input type = 'submit' value='Create'>
+	<a href = "{{url_for('showCatalog')}}" >Cancel</a> 
+</form>
+</section>
+{% endblock %}

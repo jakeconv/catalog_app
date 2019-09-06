@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+{% block content %}
+{% if username %}
+{% with username = username %}
+{% include "header.html" %}
+{% endwith %}
+{% else %}
+{% include "header.html" %}
+{% endif %}
+<section class="catalog-container">
+  <div class="categories">
+  	<h2>Categories</h2>
+    <title>Categories</title>
+    {% for c in categories %}
+    <p>
+      <a href='{{url_for('showCategoryItems', catName = c.name) }}'>{{c.name}}</a>
+    </p>
+    {% endfor %}
+    {% if username %}
+    <br>
+    <a class ="bottom-link" href='{{url_for('addCategory')}}'>New Category</a>
+    {% endif %}
+    <br>
+  </div>
+  <div class="items">
+  	<h2>Latest Items</h2>
+  	{% for i in items %}
+    <p class="item-name">{{i.name}} <i class = "category-name">({{i.category.name}})</i> </p>
+    {% endfor %}
+    <br>
+    {% if username %}
+    <a class ="bottom-link" href='{{url_for('addItem')}}'>New Item</a>
+    {% endif %}
+  </div>
+</div>
+</section>
+
+{% endblock %}
