@@ -24,22 +24,13 @@ def showCatalogJSON():
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
     data = {}
-    output = "{\"Categories\": {"
-    # Pull all of the items and categories from the database
+    # Pull all of the categories from the database.
+    # Then, build a dictionary of categories and all of their items.
     categories = session.query(Category).all()
-    # Iterate through the categories, and pull the items for each.
     for c in categories:
         items = session.query(CatalogItem).filter_by(category_id=c.id).all()
-        data[c.name] = str(json.dumps({"Items": [i.serialize for i in items]}))
-        # Convert the data into a JSON output string
-        output += "\"" + c.name + "\":" + data[c.name] + ","
-    # Remove the ending comma, then close all of the brackets
-    output = output[:-2]
-    output += "} } }"
-    # Build the JSON response
-    apiResponse = make_response(output)
-    apiResponse.headers['Content-Type'] = 'application/json'
-    return apiResponse
+        data[c.name] = {"Items": [i.serialize for i in items]}
+    return jsonify(data)
 
 
 # Category items API endpoint
