@@ -181,7 +181,7 @@ def addItem():
                 flash('Error: An item by the name %s already exists!'
                       % newItem.name)
                 return redirect(url_for('showCatalog'))
-        except:
+        except NoResultFound:
             # Item does not exist.  Add it.
             session.add(newItem)
             session.commit()
@@ -222,7 +222,7 @@ def addCategory():
             if (session.query(Category).filter_by(name=newCat.name).one()):
                 flash('Error: %s category already exists!' % newCat.name)
                 return redirect(url_for('showCatalog'))
-        except:
+        except NoResultFound:
             # Category does not exist.  Add it.
             session.add(newCat)
             session.commit()
@@ -369,7 +369,7 @@ def processUser(login_session):
             email=login_session['email']).one()
         return user
     # If no user is found with that info, then create a new one
-    except:
+    except NoResultFound:
         newUser = User(name=login_session['username'],
                        email=login_session['email'],
                        picture=login_session['picture'])
