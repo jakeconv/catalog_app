@@ -6,7 +6,7 @@
 			</a>
 		</div>
 		<div class="header-right">
-			{% if username %}
+			{% if userID %}
 			<form action="{{url_for('logout')}}">
 				<input type="submit" value="Logout" />
 			</form>

@@ -51,6 +51,9 @@ def singleItemJSON(itemName):
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
     item = session.query(CatalogItem).filter_by(name=itemName).one()
+    print item.user_id
+    print login_session['email']
+    print login_session['id']
     return jsonify(Item=item.serialize)
 
 
@@ -70,7 +73,7 @@ def showCatalog():
     if 'username' in login_session:
         return render_template('catalog.html', categories=categories,
                                items=items,
-                               username=login_session['username'])
+                               userID=login_session['id'])
     else:
         return render_template('catalog.html', categories=categories,
                                items=items)
@@ -192,7 +195,7 @@ def addItem():
             # Render the form with the available categories
             return render_template('new_item.html',
                                    categories=categories,
-                                   username=login_session['username'])
+                                   userID=login_session['id'])
         else:
             # No categories exist
             # Prompt the user to add a category first
@@ -230,7 +233,7 @@ def addCategory():
         # Then, return the add item form.
         categories = session.query(Category).all()
         return render_template('new_category.html',
-                               username=login_session['username'])
+                               userID=login_session['id'])
     return render_template('new_category.html')
 
 
@@ -250,7 +253,7 @@ def showCategoryItems(catName):
         # Render the template as a logged in user
         return render_template('category.html', category=category, items=items,
                                categories=categories, count=len(items),
-                               username=login_session['username'])
+                               userID=login_session['id'])
     else:
         # Render the template for the general public
         return render_template('category.html', category=category, items=items,
@@ -270,7 +273,7 @@ def showItem(catName, itemName):
     # If so, display the edit and delete buttons.
     if 'username' in login_session:
         return render_template('item.html', item=item,
-                               username=login_session['username'])
+                               userID=login_session['id'])
     else:
         # No user logged in
         return render_template('item.html', item=item)
@@ -287,6 +290,9 @@ def editItem(itemName):
     session = DBSession()
     # Grab the item
     item = session.query(CatalogItem).filter_by(name=itemName).one()
+    if login_session['id'] != item.user_id:
+        # User is unauthorized to delete an item
+        return('You are not allowed to edit this item.', 401)
     # If this is a post request, update the item and send it to the database
     if request.method == 'POST':
         # The completed form process.
@@ -324,7 +330,7 @@ def editItem(itemName):
         categories = session.query(Category).all()
         return render_template('edit_item.html', item=item,
                                categories=categories,
-                               username=login_session['username'])
+                               userID=login_session['id'])
 
 
 @app.route('/catalog/<string:itemName>/delete', methods=['GET', 'POST'])
@@ -338,6 +344,9 @@ def deleteItem(itemName):
     session = DBSession()
     # Grab the item to be delete
     item = session.query(CatalogItem).filter_by(name=itemName).one()
+    if login_session['id'] != item.user_id:
+        # User is unauthorized to delete an item
+        return('You are not allowed to delete this item.', 401)
     if request.method == 'POST':
         # Post request.  Delete the item.
         session.delete(item)
@@ -347,7 +356,7 @@ def deleteItem(itemName):
     else:
         # Get request.  Show the delete item page
         return render_template('delete_item.html', item=item,
-                               username=login_session['username'])
+                               userID=login_session['id'])
 
 
 # Support Methods

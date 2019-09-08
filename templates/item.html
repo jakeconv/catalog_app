@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
-{% if username %}
-{% with username = username %}
+{% if userID %}
+{% with userID = userID %}
 {% include "header.html" %}
 {% endwith %}
 {% else %}
@@ -13,7 +13,7 @@
     <h2>{{item.name}}</h2>
     <p>{{item.description}}</p>
     <br>
-    {% if username %}
+    {% if userID == item.user_id %}
     <a class="bottom-link" href='{{url_for('editItem', itemName = item.name) }}'>Edit</a>
     <a class="bottom-link" href='{{url_for('deleteItem', itemName = item.name) }}'>Delete</a>
     {% endif %}

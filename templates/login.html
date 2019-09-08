@@ -1,11 +1,11 @@
 {% extends "main.html" %}
 {% block content %}
-{% if username %}
-  {% with username = username %}
-    {% include "header.html" %}
-  {% endwith %}
+{% if userID %}
+{% with userID = userID %}
+{% include "header.html" %}
+{% endwith %}
 {% else %}
-  {% include "header.html" %}
+{% include "header.html" %}
 {% endif %}
 
 

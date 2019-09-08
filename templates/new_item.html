@@ -1,7 +1,7 @@
 {% extends "main.html" %}
 {% block content %}
-{% if username %}
-{% with username = username %}
+{% if userID %}
+{% with userID = userID %}
 {% include "header.html" %}
 {% endwith %}
 {% else %}
@@ -12,8 +12,6 @@
 <section class="form-page">
 	<h1> New Catalog Item </h1>
 	<title>New Catalog Item</title>
-
-	<!--<form action = "{{ url_for('addItem', name = name, description = description, category_id = category_id)}}" method = 'post'>-->
 		<form action = "{{ url_for('addItem')}}" method = 'post'>	
 			<p>Name:</p>
 			<input type = 'text' size = '30' name = 'name'>
