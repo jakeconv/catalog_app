@@ -76,7 +76,7 @@ The entire catalog may be accessed at:
 This endpoint will return a JSON for the entire catalog, and it will be formatted with an object for each category.  Within each category container, there will be an Items array containing the items for each category.  Each item will contain the name, description, and database ID for each item.
 A sample output:
 
-'''json
+```json
 {
   "Fruits": {
     "Items": [
@@ -107,7 +107,7 @@ A sample output:
     ]
   }
 }	
-'''
+```
 
 ### A category and its items
 A singular category and its items may be accessed at:
@@ -117,7 +117,7 @@ A singular category and its items may be accessed at:
 where category-name-here is the category to be formatted as a JSON.  This will return a list of items, where the name, description, and database ID are provided.  The category name is case sensitive.
 For my sample database, accessing http://localhost:8000/catalog/categories/Fruits.json provides the following output:
 
-'''json
+```json
 {
   "Items": [
     {
@@ -132,7 +132,7 @@ For my sample database, accessing http://localhost:8000/catalog/categories/Fruit
     }
   ]
 }
-'''
+```
 
 ### A singular item
 A single item may be accessed at:
@@ -142,7 +142,7 @@ A single item may be accessed at:
 where item-name-here is the item to be formatted as a JSON.  This will return the name, description, and database ID for the item.  The item name is case sensitive.
 For my sample database, accessing http://localhost:8000/catalog/items/Broccoli.json provides the following output:
 
-'''json
+```json
 {
   "Item": {
     "description": "High in fiber and goes great in stir fry", 
@@ -150,4 +150,4 @@ For my sample database, accessing http://localhost:8000/catalog/items/Broccoli.j
     "name": "Broccoli"
   }
 }
-'''
+```
