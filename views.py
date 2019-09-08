@@ -24,7 +24,6 @@ def showCatalogJSON():
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
     data = {}
-    # data['Categories'] = []
     output = "{\"Categories\": {"
     # Pull all of the items and categories from the database
     categories = session.query(Category).all()
@@ -41,6 +40,27 @@ def showCatalogJSON():
     apiResponse = make_response(output)
     apiResponse.headers['Content-Type'] = 'application/json'
     return apiResponse
+
+
+# Category items API endpoint
+@app.route('/catalog/categories/<string:catName>.json')
+def categoryItemsJSON(catName):
+    # Return JSON data for the items in a category
+    DBSession = sessionmaker(bind=engine)
+    session = DBSession()
+    category = session.query(Category).filter_by(name=catName).one()
+    items = session.query(CatalogItem).filter_by(category_id=category.id).all()
+    return jsonify(Items=[i.serialize for i in items])
+
+
+# Singular item API endpoint
+@app.route('/catalog/items/<string:itemName>.json')
+def singleItemJSON(itemName):
+    # Return just the irem requested
+    DBSession = sessionmaker(bind=engine)
+    session = DBSession()
+    item = session.query(CatalogItem).filter_by(name=itemName).one()
+    return jsonify(Item=item.serialize)
 
 
 @app.route('/')
@@ -357,13 +377,6 @@ def processUser(login_session):
         session.commit()
         return newUser
 
-
-def itemsJSON(category):
-    # Return JSON data for the items in a category
-    DBSession = sessionmaker(bind=engine)
-    session = DBSession()
-    items = session.query(CatalogItem).filter_by(category_id=category.id).all()
-    return jsonify(Items=[i.serialize for i in items])
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
