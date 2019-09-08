@@ -30,6 +30,14 @@ Finally, this program makes use of the sqlalchemy, flask, oauth2client, and http
 
 When downloading the project files, place them within a Vagrant shared directory, such as the vagrant folder.
 
+This project makes use of Facebook's login service to handle user authentication.  More information for this service may be found at:
+https://developers.facebook.com/docs/facebook-login/
+
+To register for a Facebook developer account, please visit:
+https://developers.facebook.com
+Once you are registered, you will need to hit the 'My Apps' dropdown, and create a new app.  Then, select the new application from that dropdown to access the application dashboard.  Under 'products', hit the plus to add Facebook Login.  Underneath the settings dropdown, hit the 'Basic' option, and note down the App ID and App Secret provided.  This information will be required later on.
+
+
 ## Installing
 To get started, navigate to your vagrant directory.  Run the following command:
 
@@ -56,3 +64,90 @@ The application will not be running at localhost on port 8000.  The catalog will
 
 		http://localhost:8000
 		http://localhost:8000/catalog
+
+## API Endpoints
+This application contains 3 API endpoints.  These endpoints provide JSON-formatted data for the entire catalog, a category and all of its items, or a singular item in the catalog.
+
+### Entire Catalog
+The entire catalog may be accessed at:
+
+		http://localhost:8000/catalog.json
+
+This endpoint will return a JSON for the entire catalog, and it will be formatted with an object for each category.  Within each category container, there will be an Items array containing the items for each category.  Each item will contain the name, description, and database ID for each item.
+A sample output:
+
+'''json
+{
+  "Fruits": {
+    "Items": [
+      {
+        "description": "Sweet, and great for making pie", 
+        "id": 1, 
+        "name": "Apples"
+      }, 
+      {
+        "description": "Perfect for making your favorite desserts", 
+        "id": 2, 
+        "name": "Blueberries"
+      }
+    ]
+  }, 
+  "Vegetables": {
+    "Items": [
+      {
+        "description": "The perfect snack", 
+        "id": 3, 
+        "name": "Carrots"
+      }, 
+      {
+        "description": "High in fiber and goes great in stir fry", 
+        "id": 4, 
+        "name": "Broccoli"
+      }
+    ]
+  }
+}	
+'''
+
+### A category and its items
+A singular category and its items may be accessed at:
+
+		http://localhost:8000/catalog/categories/category-name-here.json
+
+where category-name-here is the category to be formatted as a JSON.  This will return a list of items, where the name, description, and database ID are provided.  The category name is case sensitive.
+For my sample database, accessing http://localhost:8000/catalog/categories/Fruits.json provides the following output:
+
+'''json
+{
+  "Items": [
+    {
+      "description": "Sweet, and great for making pie", 
+      "id": 1, 
+      "name": "Apples"
+    }, 
+    {
+      "description": "Perfect for making your favorite desserts", 
+      "id": 2, 
+      "name": "Blueberries"
+    }
+  ]
+}
+'''
+
+### A singular item
+A single item may be accessed at:
+
+		http://localhost:8000/catalog/items/item-name-here.json
+
+where item-name-here is the item to be formatted as a JSON.  This will return the name, description, and database ID for the item.  The item name is case sensitive.
+For my sample database, accessing http://localhost:8000/catalog/items/Broccoli.json provides the following output:
+
+'''json
+{
+  "Item": {
+    "description": "High in fiber and goes great in stir fry", 
+    "id": 4, 
+    "name": "Broccoli"
+  }
+}
+'''
