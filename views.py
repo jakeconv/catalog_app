@@ -7,8 +7,6 @@ from sqlalchemy.orm import sessionmaker
 from models import Base, User, Category, CatalogItem
 import random
 import string
-from oauth2client.client import flow_from_clientsecrets
-from oauth2client.client import FlowExchangeError
 import httplib2
 import json
 from flask import make_response
