@@ -4,6 +4,7 @@ from flask import redirect, url_for, flash
 from flask import session as login_session
 from sqlalchemy import create_engine, asc, desc
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import NoResultFound
 from models import Base, User, Category, CatalogItem
 import random
 import string
